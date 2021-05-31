@@ -58,7 +58,7 @@ PALETTE = [0, 0, 0, 128, 0, 0, 0, 128, 0, 128, 128, 0, 0, 0, 128, 128, 0, 128,
 
 
 
-def get_image(path, resize='pad', out_dims=(512, 512)):
+def get_image(path, resize='pad', out_dims=(224, 224)):
   """Retrieves image as array of RGB values.
 
     Parameters:
@@ -90,7 +90,7 @@ def get_image(path, resize='pad', out_dims=(512, 512)):
 
 
 
-def get_label_png(path, resize='pad', out_dims=(512, 512)):
+def get_label_png(path, resize='pad', out_dims=(224, 224)):
   """Retrieves class labels for each pixel from Pascal VOC .png file.
 
     Parameters:
@@ -125,7 +125,7 @@ def get_label_png(path, resize='pad', out_dims=(512, 512)):
 
 
 
-def get_label_mat(path, resize='pad', out_dims=(512, 512)):
+def get_label_mat(path, resize='pad', out_dims=(224, 224)):
   """Retrieves class labels for each pixel from Berkeley SBD .mat file.
 
     Parameters:
@@ -238,8 +238,8 @@ _feature_description = {
 def _parse_function(example_proto):
   # Parse the input `tf.train.Example` proto using the dictionary above.
   dct = tf.io.parse_single_example(example_proto, _feature_description)
-  image = tf.reshape(tf.io.decode_raw(dct['image'], out_type=tf.uint8), (512, 512, 3))
-  label = tf.reshape(tf.io.decode_raw(dct['label'], out_type=tf.uint8), (512, 512))
+  image = tf.reshape(tf.io.decode_raw(dct['image'], out_type=tf.uint8), (224,224, 3))
+  label = tf.reshape(tf.io.decode_raw(dct['label'], out_type=tf.uint8), (224, 224))
   return (image, label)
 
 ## ============================================================================
@@ -309,7 +309,9 @@ def read_from_record(record_file, parse_function=_parse_function):
   Returns:
 
     TensorFlow Dataset that yields a tuple of numpy arrays (image, label).
-    image has shape=(512, 512, 3) and label has shape=(512, 512), encoding the
+    image has shape=(
+    
+    , 512, 3) and label has shape=(512, 512), encoding the
     class label of each pixel as an integer.
   """
 
