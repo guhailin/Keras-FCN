@@ -23,7 +23,7 @@ def vgg16(l2=0, dropout=0):
   
   ## Input
 #   input_layer = keras.Input(shape=(512, 512, 3), name='input')
-  input_layer = keras.Input(shape=(512, 512, 3), name='input')
+  input_layer = keras.Input(shape=(224, 224, 3), name='input')
 
   ## Preprocessing
   x = keras.layers.Lambda(tf.keras.applications.vgg16.preprocess_input, name='preprocessing')(input_layer)
